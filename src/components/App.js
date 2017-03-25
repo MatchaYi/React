@@ -11,7 +11,8 @@ import '../App.css';
 // import UnreadMessage from './06-UnreadMessage';
 // import PreventRendering from './07-PreventRendering';
 // import ListsandKeys from './08-Lists-Keys';
-import ControlledComponents from './09-ColltrolledComponents'
+// import ControlledComponents from './09-ColltrolledComponents';
+import TempertureCalculator from './10-TemperatureCalculator'
 
 
 
@@ -29,8 +30,8 @@ class App extends Component {
          {/*<UnreadMessage />*/}
          {/*<PreventRendering />*/}
          {/*<ListsandKeys />*/}
-         <ControlledComponents />
-
+         {/*<ControlledComponents />*/}
+         <TempertureCalculator />
       </div>
     )
   }
