@@ -20,50 +20,32 @@ function toConvert (temperature, convert) {
     return rounded.toString();
 }
 
-// const scaleNames = {
-//     'c': 'Celsius',
-//     'f': 'Fahrenheit'
-// }
+const scaleNames = {
+    'c': 'Celsius',
+    'f': 'Fahrenheit'
+}
 
-class CelsiusTemperatureInput extends Component {
+class TemperatureInput extends Component {
     constructor (props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
     }
     handleChange (e) {
-        this.props.onChange(e.target.value)
+        var temp = this.props.output_convert(e.target.value);
+        this.props.onChange(temp)
     }
     render () {
-        const temperature = this.props.temperature;
+        const temperature = this.props.input_convert(this.props.temperature);
+        const scale = this.props.scale;
         return (
             <fieldset>
-                <legend>Enter temperature in Celsius</legend>
+                <legend>Enter temperature in {scaleNames[scale]}</legend>
                 <input type='text' value={temperature} onChange={this.handleChange}/>
             </fieldset>  
         )
     }
 }
 
-class FahrenheitTemperatureInput extends Component {
-    constructor (props) {
-        super(props);
-        //!!! this.props.temperature = toConvert(this.props.temperature, toFahrenheit);
-        this.handleChange = this.handleChange.bind(this);
-    }
-    handleChange (e) {
-        var celsius = toConvert(e.target.value, toCelsius);
-        this.props.onChange(celsius);
-    }
-    render () {
-        const temperature = toConvert(this.props.temperature, toFahrenheit);
-        return (
-            <fieldset>
-                <legend>Enter temperature in Fahrenheit</legend>
-                <input type='text' value={temperature} onChange={this.handleChange}/>
-            </fieldset>  
-        )
-    }
-}
 class TemperatureCalculator extends Component {
     constructor (props) {
         super(props);
@@ -77,8 +59,20 @@ class TemperatureCalculator extends Component {
         const temperature = this.state.temperature;
         return (
             <div>
-                <CelsiusTemperatureInput temperature={temperature} onChange={this.handleChange} />
-                <FahrenheitTemperatureInput temperature={temperature} onChange={this.handleChange}/>
+                <TemperatureInput
+                    temperature={temperature}
+                    onChange={this.handleChange} 
+                    input_convert={x => x}
+                    output_convert={x => x}
+                    scale='c'
+                />
+                <TemperatureInput
+                    temperature={temperature}
+                    onChange={this.handleChange}
+                    input_convert={x => toConvert(x, toFahrenheit)}
+                    output_convert={x => toConvert(x, toCelsius)}
+                    scale='f'
+                />
                 <BoilCovert celsuis={temperature}/>
             </div>
         );
