@@ -12,7 +12,7 @@ import '../App.css';
 // import PreventRendering from './07-PreventRendering';
 // import ListsandKeys from './08-Lists-Keys';
 // import ControlledComponents from './09-ColltrolledComponents';
-import TempertureCalculator from './10-TemperatureCalculator'
+import TempertureCalculator from './TemperatureCalculator'
 
 
 
