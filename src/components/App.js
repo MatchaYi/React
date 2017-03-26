@@ -4,7 +4,7 @@ import '../App.css';
 // import LearningES6 from './00-ES6Learning';
 // import LearningJSX from './01-LearingJSX';
 // import LearningProps from './02-Components-Props';
-// import Clock from './03-Clock-state';
+import Clock from './03-Clock-state';
 // import Click from './04-Click';
 // import Greeting from './05-Conditional-rendering1';
 // import GreetingToo from './05-Conditional-rendering2';
@@ -23,7 +23,7 @@ class App extends Component {
          {/*<LearningES6 />*/}
          {/*<LearningJSX />*/}
          {/*<LearningProps />*/}
-         {/*<Clock />*/}
+         <Clock />
          {/*<Click />*/}
          {/*<Greeting />*/}
          {/*<GreetingToo />*/}
@@ -31,7 +31,7 @@ class App extends Component {
          {/*<PreventRendering />*/}
          {/*<ListsandKeys />*/}
          {/*<ControlledComponents />*/}
-         <TempertureCalculator />
+         {/* <TempertureCalculator /> */}
       </div>
     )
   }
