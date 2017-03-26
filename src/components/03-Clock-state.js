@@ -16,11 +16,13 @@ class Clock extends Component {
                 date: new Date()
             }));
         },1000);
+        console.log('*************');
     }
     componentWillUnmount () {
         clearInterval(this.timer);
         //While this.props is set up by React itself and this.state has a special meaning, you are free to add additional fields to the class manually if you need to store something that is not used for the visual output.
         //If you don't use something in render(), it shouldn't be in the state.  ???
+        console.log('-------------');
     }
      render () {
         return (
@@ -36,11 +38,21 @@ class Clock extends Component {
 
 
 class ClockOut extends Component {
+    constructor (props) {
+      super(props);
+      this.state = {toggle: false};
+      this.handleChange = this.handleChange.bind(this);
+    }
+    handleChange (e) {
+      this.setState(prevState => ({toggle: !prevState.toggle}));
+    }
     render () {
+        const toggle = this.state.toggle;
         return (
             <div>
-                <Clock name="react"/>
-                <Clock name="vue"/>
+                {toggle && <Clock name="react"/> }
+                <input name='isGoing' type="checkbox" checked={toggle} onChange={this.handleChange}/>
+                {toggle || <Clock name="vue"/> }
             </div>
         )
     }
