@@ -1,10 +1,17 @@
 import React, {Component} from 'react';
+
 function BoilCovert (props) {
-    if(props.celsuis >= 100) {
+    if (props.celsuis >= 100) {
         return <p>The water would boil.</p>
+    } else {
+        return <p>The water would not boil.</p>
     }
-    return <p>The water would not boil.</p>
+    // return props.celsuis >= 100 ? <p>The water would boil.</p> : <p>The water would not boil.</p>;
+    // return <p>
+    //   {props.celsuis >= 100 ? "The water would boil.": "The water would not boil.</p>"}
+    // </p>
 }
+
 function toCelsius(fahrenheit) {
   return (fahrenheit - 32) * 5 / 9;
 }
@@ -12,7 +19,8 @@ function toCelsius(fahrenheit) {
 function toFahrenheit(celsius) {
   return (celsius * 9 / 5) + 32;
 }
-function toConvert (temperature,convert) {
+
+function toConvert (temperature, convert) {
     const input = parseFloat(temperature);
     if(Number.isNaN(input)){
         return ''
@@ -21,20 +29,18 @@ function toConvert (temperature,convert) {
     const rounded = Math.round(output * 1000)/1000;
     return rounded.toString();
 }
+
 const scaleNames = {
     'c': 'Celsius',
     'f': 'Fahrenheit'
 }
+
 class TemperatureInput extends Component {
     constructor (props) {
         super(props);
-        // this.state = {
-        //     temperature: ''
-        // }
         this.handleChange = this.handleChange.bind(this);
     }
     handleChange (e) {
-        // this.setState({temperature: e.target.value});
         this.props.onTemperatureChange(e.target.value)
     }
     render () {
@@ -48,6 +54,7 @@ class TemperatureInput extends Component {
         )
     }
 }
+
 class TemperatureCalculator extends Component {
     constructor (props) {
         super(props);
@@ -67,15 +74,23 @@ class TemperatureCalculator extends Component {
     render () {
         const scale = this.state.scale;
         const temperature = this.state.temperature;
-        const celsius = scale === 'f' ? toConvert(temperature,toCelsius) : temperature;
-        const fahrenheit = scale === 'c' ? toConvert(temperature,toFahrenheit) : temperature;
+        const celsius = scale === 'f' ? toConvert(temperature, toCelsius) : temperature;
+        const fahrenheit = scale === 'c' ? toConvert(temperature, toFahrenheit) : temperature;
         return (
             <div>
                 <TemperatureInput temperature={celsius} scale='c' onTemperatureChange={this.handleCelsuisChange}/>
                 <TemperatureInput temperature={fahrenheit} scale='f' onTemperatureChange={this.handleFahrenheitChange}/>
                 <BoilCovert celsuis={celsius}/>
             </div>
-        )
+        );
+        // return React.createElement(
+        //      'div', {}, [
+        //          React.createElement(TemperatureInput, { temperature: celsius, scale: 'c', onTemperatureChange: this.handleCelsuisChange }),
+        //          React.createElement(TemperatureInput, { temperature: fahrenheit, scale: 'f', onTemperatureChange: this.handleFahrenheitChange }),
+        //          React.createElement( BoilCovert, { celsius: celsius }),
+        //        ]
+        //  )
     }
 }
+
 export default TemperatureCalculator
