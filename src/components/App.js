@@ -15,7 +15,8 @@ import '../App.css';
 // import TempertureCalculatorMy from './10-TemperatureCalculator';
 // import TempertureCalculator from './TemperatureCalculator'
 // import CompositionVsInheritance from './11-CompositionVsInheritance'
-import ThingkingInReact from './12-ThingkingInReact'
+import ThingkingInReactMe from './12-ThingkingInReact.1'
+// import ThingkingInReact from './12-ThingkingInReact'
 
 
 
@@ -38,7 +39,8 @@ class App extends Component {
          {/*<hr/><br/>*/}
          {/*<TempertureCalculator />*/}
          {/*<CompositionVsInheritance />*/}
-         <ThingkingInReact /> 
+         <ThingkingInReactMe />
+         {/*<ThingkingInReact /> */}
       </div>
     )
   }
