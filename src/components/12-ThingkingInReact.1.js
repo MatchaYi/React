@@ -5,31 +5,39 @@ class SearchBar extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            search: 'Searching...'
+            search: 'Searching...',
         }
+        this.handleChange = this.handleChange.bind(this);
+    }
+    handleChange (e) {
+        this.props.onChange(e.target.checked);
     }
     render () {
+        const isStock = this.props.isStock
         return (
             <div>
                 <input type="text" placeholder={this.state.search}/>
                 <br />
                 <label>
-                    <input type="checkbox"/>Only show products in stock
+                    <input type="checkbox" 
+                    checked={isStock}
+                    onChange={this.handleChange} />Only show products in stock
                 </label>
-                
             </div>
         )
     }
 }
 function  Products (props) {
     const data = props.data;
+    const isStock = props.isStock;
     return (
         <tbody>
             <tr><th>{data[0].category}</th></tr>
-            {data.map((item, index) => {
+            {data.filter(item => isStock ? item.stocked : true).map((item, index) => {
+                const color = item.stocked === true ? '' : 'red';
                 return (
                     <tr key={index}>
-                        <td>{item.name}</td>
+                        <td style={{color:color}}>{item.name}</td>
                         <td>{item.price}</td>
                     </tr>
                 )
@@ -48,6 +56,7 @@ const dataJson = [
 class ProductTable extends Component {
     render () {
         const datas = dataJson;
+        const isStock = this.props.isStock;
         return (
             <table>
                 <thead>
@@ -56,20 +65,30 @@ class ProductTable extends Component {
                         <th>Price</th>
                     </tr>
                 </thead>
-                <Products data={datas.filter(item => item.category==='Sporting Goods')}/>
-                <Products data={datas.filter(item => item.category==='Electronics')}/>
+                <Products isStock={isStock} data={datas.filter(item => item.category==='Sporting Goods')}/>
+                <Products isStock={isStock} data={datas.filter(item => item.category==='Electronics')}/>
             </table>
         )
     }
 }
 
 class FilterableProductTable  extends Component {
+    constructor (props) {
+        super (props);
+        this.state = {
+            isStock: false
+        }
+        this.handleChange = this.handleChange.bind(this);
+    }
+    handleChange (isStock) {
+        this.setState({isStock: isStock})
+    }
     render () {
         return (
             <div>
-               <SearchBar /> 
+               <SearchBar isStock={this.state.isStock} onChange={this.handleChange}/> 
                <br/><br/>
-               <ProductTable />
+               <ProductTable isStock={this.state.isStock}/>
             </div>
         )
     }
