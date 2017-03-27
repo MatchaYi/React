@@ -4,7 +4,7 @@ import '../App.css';
 // import LearningES6 from './00-ES6Learning';
 // import LearningJSX from './01-LearingJSX';
 // import LearningProps from './02-Components-Props';
-import Clock from './03-Clock-state';
+// import Clock from './03-Clock-state';
 // import Click from './04-Click';
 // import Greeting from './05-Conditional-rendering1';
 // import GreetingToo from './05-Conditional-rendering2';
@@ -12,7 +12,10 @@ import Clock from './03-Clock-state';
 // import PreventRendering from './07-PreventRendering';
 // import ListsandKeys from './08-Lists-Keys';
 // import ControlledComponents from './09-ColltrolledComponents';
-import TempertureCalculator from './TemperatureCalculator'
+// import TempertureCalculatorMy from './10-TemperatureCalculator';
+// import TempertureCalculator from './TemperatureCalculator'
+// import CompositionVsInheritance from './11-CompositionVsInheritance'
+import ThingkingInReact from './12-ThingkingInReact'
 
 
 
@@ -23,7 +26,7 @@ class App extends Component {
          {/*<LearningES6 />*/}
          {/*<LearningJSX />*/}
          {/*<LearningProps />*/}
-         <Clock />
+         {/*<Clock />*/}
          {/*<Click />*/}
          {/*<Greeting />*/}
          {/*<GreetingToo />*/}
@@ -31,7 +34,11 @@ class App extends Component {
          {/*<PreventRendering />*/}
          {/*<ListsandKeys />*/}
          {/*<ControlledComponents />*/}
-         {/* <TempertureCalculator /> */}
+         {/*<TempertureCalculatorMy />*/}
+         {/*<hr/><br/>*/}
+         {/*<TempertureCalculator />*/}
+         {/*<CompositionVsInheritance />*/}
+         <ThingkingInReact /> 
       </div>
     )
   }

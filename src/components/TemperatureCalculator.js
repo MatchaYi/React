@@ -49,7 +49,7 @@ class TemperatureInput extends Component {
 class TemperatureCalculator extends Component {
     constructor (props) {
         super(props);
-        this.state = {temperature: 0};
+        this.state = {temperature: 1};
         this.handleChange = this.handleChange.bind(this);
     }
     handleChange (temperature) {
@@ -78,5 +78,6 @@ class TemperatureCalculator extends Component {
         );
     }
 }
+
 
 export default TemperatureCalculator
