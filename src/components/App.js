@@ -12,7 +12,10 @@ import '../App.css';
 // import PreventRendering from './07-PreventRendering';
 // import ListsandKeys from './08-Lists-Keys';
 // import ControlledComponents from './09-ColltrolledComponents';
-import TempertureCalculator from './TemperatureCalculator'
+// import TempertureCalculatorMy from './10-TemperatureCalculator';
+// import TempertureCalculator from './TemperatureCalculator'
+// import CompositionVsInheritance from './11-CompositionVsInheritance'
+import ThingkingInReact from './12-ThingkingInReact'
 
 
 
@@ -31,7 +34,11 @@ class App extends Component {
          {/*<PreventRendering />*/}
          {/*<ListsandKeys />*/}
          {/*<ControlledComponents />*/}
-         <TempertureCalculator />
+         {/*<TempertureCalculatorMy />*/}
+         {/*<hr/><br/>*/}
+         {/*<TempertureCalculator />*/}
+         {/*<CompositionVsInheritance />*/}
+         <ThingkingInReact /> 
       </div>
     )
   }
