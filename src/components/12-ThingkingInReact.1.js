@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import _ from 'underscore';
 
 class SearchBar extends Component {
     constructor (props) {
@@ -28,23 +28,25 @@ class SearchBar extends Component {
     }
 }
 function  Products (props) {
-    const data = props.data;
-    const isStock = props.isStock;
-    const searchText = props.searchText;
+    const categorized_prods = _.groupBy(props.data, prod => prod.category);
+    const categories = Object.keys(categorized_prods);
     return (
         <tbody>
-            <tr><th>{data[0].category}</th></tr>
-            {data.filter(item => isStock ? item.stocked : true)
-            .filter(item => item.name.toLowerCase().indexOf(searchText) > -1 || item.price.indexOf(searchText) > -1)
-            .map(item => {
-                const color = item.stocked === true ? '' : 'red';
-                return (
-                    <tr key={item.name}>
-                        <td style={{color:color}}>{item.name}</td>
-                        <td>{item.price}</td>
-                    </tr>
-                )
-            })}
+        {
+               categories.map(category =>
+                  [<tr><td colSpan='2'>{category}</td></tr>].concat(
+                      categorized_prods[category].map(prod => {
+                          let color = prod.stock ? '': 'cyan';
+                          return (
+                              <tr key={prod.name}>
+                                  <td style={{color}}>{prod.name}</td>
+                                  <td>{prod.price}</td>
+                              </tr>
+                          );
+                      })
+                  )
+               )
+        }
         </tbody>
     )
 }
@@ -59,9 +61,10 @@ const dataJson = [
 ];
 class ProductTable extends Component {
     render () {
-        const datas = dataJson;
         const isStock = this.props.isStock;
         const searchText = this.props.searchText;
+        const datas = dataJson.filter(prod => isStock || prod.stocked)
+                              .filter(prod => prod.name.indexOf(searchText) !== -1);
         return (
             <table>
                 <thead>
@@ -70,13 +73,7 @@ class ProductTable extends Component {
                         <th>Price</th>
                     </tr>
                 </thead>
-                <Products isStock={isStock} 
-                data={datas.filter(item => item.category==='Sporting Goods')}
-                searchText={searchText}
-                />
-                <Products isStock={isStock} 
-                data={datas.filter(item => item.category==='Electronics')}
-                searchText={searchText}
+                <Products data={datas}/>
                 />
             </table>
         )
