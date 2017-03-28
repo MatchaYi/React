@@ -4,39 +4,42 @@ import React, {Component} from 'react';
 class SearchBar extends Component {
     constructor (props) {
         super(props);
-        this.state = {
-            search: 'Searching...',
-        }
         this.handleChange = this.handleChange.bind(this);
+        this.searchChange = this.searchChange.bind(this);
     }
     handleChange (e) {
-        this.props.onChange(e.target.checked);
+        this.props.onCheckedChange(e.target.checked);
+    }
+    searchChange (e) {
+        this.props.onSearchChange(e.target.value);
     }
     render () {
-        const isStock = this.props.isStock
+        const isStock = this.props.isStock;
         return (
-            <div>
-                <input type="text" placeholder={this.state.search}/>
-                <br />
-                <label>
+            <form >
+                <input type="text" placeholder='Searching...' onChange={this.searchChange}/>
+                <p>
                     <input type="checkbox" 
                     checked={isStock}
                     onChange={this.handleChange} />Only show products in stock
-                </label>
-            </div>
+                </p>
+            </form>
         )
     }
 }
 function  Products (props) {
     const data = props.data;
     const isStock = props.isStock;
+    const searchText = props.searchText;
     return (
         <tbody>
             <tr><th>{data[0].category}</th></tr>
-            {data.filter(item => isStock ? item.stocked : true).map((item, index) => {
+            {data.filter(item => isStock ? item.stocked : true)
+            .filter(item => item.name.toLowerCase().indexOf(searchText) > -1 || item.price.indexOf(searchText) > -1)
+            .map(item => {
                 const color = item.stocked === true ? '' : 'red';
                 return (
-                    <tr key={index}>
+                    <tr key={item.name}>
                         <td style={{color:color}}>{item.name}</td>
                         <td>{item.price}</td>
                     </tr>
@@ -58,6 +61,7 @@ class ProductTable extends Component {
     render () {
         const datas = dataJson;
         const isStock = this.props.isStock;
+        const searchText = this.props.searchText;
         return (
             <table>
                 <thead>
@@ -66,8 +70,14 @@ class ProductTable extends Component {
                         <th>Price</th>
                     </tr>
                 </thead>
-                <Products isStock={isStock} data={datas.filter(item => item.category==='Sporting Goods')}/>
-                <Products isStock={isStock} data={datas.filter(item => item.category==='Electronics')}/>
+                <Products isStock={isStock} 
+                data={datas.filter(item => item.category==='Sporting Goods')}
+                searchText={searchText}
+                />
+                <Products isStock={isStock} 
+                data={datas.filter(item => item.category==='Electronics')}
+                searchText={searchText}
+                />
             </table>
         )
     }
@@ -77,19 +87,28 @@ class FilterableProductTable  extends Component {
     constructor (props) {
         super (props);
         this.state = {
-            isStock: false
+            isStock: false,
+            searchText: ''
         }
         this.handleChange = this.handleChange.bind(this);
+        this.searchChange = this.searchChange.bind(this);
     }
     handleChange (isStock) {
         this.setState({isStock: isStock})
     }
+    searchChange (searchText) {
+        this.setState({searchText: searchText})
+    }
     render () {
         return (
             <div>
-               <SearchBar isStock={this.state.isStock} onChange={this.handleChange}/> 
+               <SearchBar 
+                    isStock={this.state.isStock} 
+                    searchText={this.state.searchText}
+                    onCheckedChange={this.handleChange} 
+                    onSearchChange={this.searchChange}/> 
                <br/><br/>
-               <ProductTable isStock={this.state.isStock}/>
+               <ProductTable isStock={this.state.isStock} searchText={this.state.searchText}/>
             </div>
         )
     }
