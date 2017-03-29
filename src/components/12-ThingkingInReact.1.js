@@ -34,9 +34,9 @@ function  Products (props) {
         <tbody>
         {
                categories.map(category =>
-                  [<tr><td colSpan='2'>{category}</td></tr>].concat(
+                  [<tr><th colSpan='2'>{category}</th></tr>].concat(
                       categorized_prods[category].map(prod => {
-                          let color = prod.stock ? '': 'cyan';
+                          let color = prod.stocked ? '': 'red';
                           return (
                               <tr key={prod.name}>
                                   <td style={{color}}>{prod.name}</td>
@@ -63,7 +63,7 @@ class ProductTable extends Component {
     render () {
         const isStock = this.props.isStock;
         const searchText = this.props.searchText;
-        const datas = dataJson.filter(prod => isStock || prod.stocked)
+        const datas = dataJson.filter(prod => !isStock || prod.stocked)
                               .filter(prod => prod.name.indexOf(searchText) !== -1);
         return (
             <table>
@@ -74,7 +74,6 @@ class ProductTable extends Component {
                     </tr>
                 </thead>
                 <Products data={datas}/>
-                />
             </table>
         )
     }
