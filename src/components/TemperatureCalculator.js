@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-const BoilCovert = props => props.celsuis >= 100 ? <p>The water would boil.</p> :<p>The water would not boil.</p>;
+const BoilingVerdict = props => props.celsuis >= 100 ? <p>The water would boil.</p> :<p>The water would not boil.</p>;
 
 function toCelsius(fahrenheit) {
   return (fahrenheit - 32) * 5 / 9;
@@ -46,7 +46,7 @@ class TemperatureInput extends Component {
     }
 }
 
-class TemperatureCalculator extends Component {
+class Calculator extends Component {
     constructor (props) {
         super(props);
         this.state = {temperature: 1};
@@ -73,11 +73,11 @@ class TemperatureCalculator extends Component {
                     output_convert={x => toConvert(x, toCelsius)}
                     scale='f'
                 />
-                <BoilCovert celsuis={temperature}/>
+                <BoilingVerdict celsuis={temperature}/>
             </div>
         );
     }
 }
 
 
-export default TemperatureCalculator
+export default Calculator
