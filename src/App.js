@@ -5,6 +5,8 @@ import Clock from './ClockApp'
 import {ControlledForm} from './Form'
 import {UncontrolledForm} from './Form'
 import TemperatureCalculator from './TemperatureCalculator'
+import Composition from './Composition'
+import ThingkingInReact from './ThingkingInReact'
 
 // function withToggle (cb) {
 //   return class 
@@ -108,13 +110,15 @@ const app = [
   () => <Greeting />,
   ShowWarning,
   withToggle(isToggleOn => isToggleOn ? <ControlledForm /> : <UncontrolledForm />),
-  TemperatureCalculator
+  TemperatureCalculator,
+  Composition,
+  ThingkingInReact
 ]
 
 class App extends Component {
   constructor (props) {
     super(props);
-    this.state = {count: 6}
+    this.state = {count: 8}
     this.handleClick = this.handleClick.bind(this);
   }
   handleClick () {
